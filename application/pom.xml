@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.antharos</groupId>
-        <artifactId>aiintegrations</artifactId>
+        <groupId>com.antharos.aiintegrations</groupId>
+        <artifactId>parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -20,9 +20,28 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.antharos</groupId>
+            <groupId>com.antharos.aiintegrations</groupId>
             <artifactId>domain</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <!-- Stanford NLP -->
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>4.5.8</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>4.5.8</version>
+            <classifier>models</classifier>
+        </dependency>
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>4.5.8</version>
+            <classifier>models-spanish</classifier>
         </dependency>
     </dependencies>
 

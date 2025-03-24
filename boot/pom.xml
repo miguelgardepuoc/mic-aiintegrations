@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.antharos</groupId>
-        <artifactId>aiintegrations</artifactId>
+        <groupId>com.antharos.aiintegrations</groupId>
+        <artifactId>parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -21,19 +21,19 @@
     <dependencies>
         <!-- Internal -->
         <dependency>
-            <groupId>com.antharos</groupId>
+            <groupId>com.antharos.aiintegrations</groupId>
             <artifactId>infrastructure</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!-- The "application" and "model" modules are transitively included already;
              but we need to include them *explicitly* so that the aggregated JaCoCo report will cover them. -->
         <dependency>
-            <groupId>com.antharos</groupId>
+            <groupId>com.antharos.aiintegrations</groupId>
             <artifactId>application</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.antharos</groupId>
+            <groupId>com.antharos.aiintegrations</groupId>
             <artifactId>domain</artifactId>
             <version>${project.version}</version>
         </dependency>

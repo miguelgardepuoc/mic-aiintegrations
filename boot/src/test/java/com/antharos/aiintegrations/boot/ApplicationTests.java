@@ -1,4 +1,4 @@
-package com.antharos.boot;
+package com.antharos.aiintegrations.boot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

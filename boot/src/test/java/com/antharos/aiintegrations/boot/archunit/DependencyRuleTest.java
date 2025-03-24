@@ -1,4 +1,4 @@
-package com.antharos.boot.archunit;
+package com.antharos.aiintegrations.boot.archunit;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
@@ -7,7 +7,7 @@ import com.tngtech.archunit.core.importer.ClassFileImporter;
 import org.junit.jupiter.api.Test;
 
 public class DependencyRuleTest {
-  private static final String ROOT_PACKAGE = "com.antharos";
+  private static final String ROOT_PACKAGE = "com.antharos.aiintegrations";
   private static final String MODEL_PACKAGE = "domain";
   private static final String APPLICATION_PACKAGE = "application";
   private static final String ADAPTER_PACKAGE = "infrastructure";
