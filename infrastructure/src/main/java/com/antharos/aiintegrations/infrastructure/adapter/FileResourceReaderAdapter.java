@@ -18,7 +18,7 @@ public class FileResourceReaderAdapter implements ResourceReader {
 
     try (BufferedReader reader =
         new BufferedReader(
-            new InputStreamReader(new ClassPathResource(resourcePath).getInputStream()))) {
+            new InputStreamReader(createClassPathResource(resourcePath).getInputStream()))) {
 
       String line;
       while ((line = reader.readLine()) != null) {
@@ -30,5 +30,10 @@ public class FileResourceReaderAdapter implements ResourceReader {
     }
 
     return names;
+  }
+
+  // Protected method to allow mocking in tests
+  protected ClassPathResource createClassPathResource(String resourcePath) {
+    return new ClassPathResource(resourcePath);
   }
 }

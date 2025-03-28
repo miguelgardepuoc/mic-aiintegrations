@@ -10,35 +10,89 @@ import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class NameExtractionService {
-  private final StanfordCoreNLP pipeline;
+  private StanfordCoreNLP pipeline;
   private final Set<String> commonSpanishNames;
   private final Set<String> compoundIndicators;
   private final FileTextExtractor fileTextExtractor;
+  private final ResourceReader resourceReader;
 
+  // Default constructor for Spring
+  public NameExtractionService() {
+    this.compoundIndicators =
+        new HashSet<>(
+            Arrays.asList("de", "del", "la", "las", "los", "da", "di", "van", "von", "el"));
+    this.commonSpanishNames = new HashSet<>();
+    this.fileTextExtractor = null;
+    this.resourceReader = null;
+  }
+
+  // Comprehensive constructor for manual creation and dependency injection
+  @Autowired
   public NameExtractionService(FileTextExtractor fileTextExtractor, ResourceReader resourceReader)
       throws IOException {
     this.fileTextExtractor = fileTextExtractor;
-
-    // Configure Stanford NLP for named entity recognition
-    Properties props = new Properties();
-    props.setProperty("annotators", "tokenize,ssplit,pos,lemma,ner");
-    props.setProperty("ner.useSUTime", "false");
-    props.setProperty(
-        "ner.model", "edu/stanford/nlp/models/ner/spanish.ancora.distsim.s512.crf.ser.gz");
-    this.pipeline = new StanfordCoreNLP(props);
-
-    // Initialize set of common Spanish names from resource file
-    this.commonSpanishNames = resourceReader.readNamesFromResource("names/spanish-names.txt");
+    this.resourceReader = resourceReader;
 
     // Prepositions and articles for compound surnames
     this.compoundIndicators =
         new HashSet<>(
             Arrays.asList("de", "del", "la", "las", "los", "da", "di", "van", "von", "el"));
+
+    // Initialize set of common Spanish names from resource file
+    this.commonSpanishNames = resourceReader.readNamesFromResource("names/spanish-names.txt");
+
+    // Configure Stanford NLP for named entity recognition
+    initializePipeline();
+  }
+
+  // Separate method for pipeline initialization to allow for testing and flexibility
+  private void initializePipeline() {
+    try {
+      Properties props = new Properties();
+      props.setProperty("annotators", "tokenize,ssplit,pos,lemma,ner");
+      props.setProperty("ner.useSUTime", "false");
+      props.setProperty(
+          "ner.model", "edu/stanford/nlp/models/ner/spanish.ancora.distsim.s512.crf.ser.gz");
+      this.pipeline = new StanfordCoreNLP(props);
+    } catch (Exception e) {
+      // Log the error or handle it appropriately
+      this.pipeline = null;
+    }
+  }
+
+  // Method for testing or manual pipeline initialization
+  public void initializeWithCustomPipeline(StanfordCoreNLP customPipeline) {
+    this.pipeline = customPipeline;
+  }
+
+  // Modify the NLP extraction method to handle null pipeline
+  protected List<String> extractPersonNamesWithNLP(String text) {
+    List<String> names = new ArrayList<>();
+
+    // If pipeline is not initialized, return empty list
+    if (pipeline == null) {
+      return names;
+    }
+
+    // Extract the first 500 characters to improve performance
+    String firstPart = text.length() > 500 ? text.substring(0, 500) : text;
+
+    CoreDocument document = new CoreDocument(firstPart);
+    pipeline.annotate(document);
+
+    for (CoreEntityMention em : document.entityMentions()) {
+      if (em.entityType().equals("PERSONA") || em.entityType().equals("PERSON")) {
+        names.add(em.text());
+      }
+    }
+
+    return names;
   }
 
   public String extractTextFromFile(MultipartFile file) throws IOException {
@@ -103,24 +157,6 @@ public class NameExtractionService {
   private String normalizeText(String text) {
     // Replace multiple spaces/line breaks with a single space
     return text.replaceAll("\\s+", " ").trim();
-  }
-
-  private List<String> extractPersonNamesWithNLP(String text) {
-    List<String> names = new ArrayList<>();
-
-    // Extract the first 500 characters to improve performance
-    String firstPart = text.length() > 500 ? text.substring(0, 500) : text;
-
-    CoreDocument document = new CoreDocument(firstPart);
-    pipeline.annotate(document);
-
-    for (CoreEntityMention em : document.entityMentions()) {
-      if (em.entityType().equals("PERSONA") || em.entityType().equals("PERSON")) {
-        names.add(em.text());
-      }
-    }
-
-    return names;
   }
 
   private List<String> extractNameWithRegex(String text) {
