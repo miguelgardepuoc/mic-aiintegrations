@@ -15,11 +15,12 @@ class FileResourceReaderAdapterTest {
   @Test
   void readNamesFromResource_ValidResourceFile_ReturnsCorrectNames() throws IOException {
     // Arrange
-    String content = """
+    String content =
+        """
             John Doe
             Jane Smith
               Alice Johnson \s
-            
+
             Bob Brown
             """;
 
@@ -53,7 +54,7 @@ class FileResourceReaderAdapterTest {
     // Arrange
     String content = """
               \s
-            
+
                  \t  \s
             """;
 
@@ -69,7 +70,8 @@ class FileResourceReaderAdapterTest {
   @Test
   void readNamesFromResource_ResourceFileWithDuplicates_ReturnsUniqueNames() throws IOException {
     // Arrange
-    String content = """
+    String content =
+        """
             John Doe
             john doe
             JOHN DOE
