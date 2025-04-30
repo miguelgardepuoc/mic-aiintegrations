@@ -1,4 +1,4 @@
-package com.antharos.aiintegrations.infrastructure.event.model;
+package com.antharos.aiintegrations.infrastructure.in.event.model;
 
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -11,11 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SignedUpCandidate {
-  private UUID jobOfferId;
-
   private UUID candidateId;
-
   private String cvFilename;
-
-  // Not interested in the rest of the fields
 }

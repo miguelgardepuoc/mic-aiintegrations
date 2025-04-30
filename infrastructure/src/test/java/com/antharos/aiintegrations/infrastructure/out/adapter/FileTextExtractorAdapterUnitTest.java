@@ -1,4 +1,4 @@
-package com.antharos.aiintegrations.infrastructure.adapter;
+package com.antharos.aiintegrations.infrastructure.out.adapter;
 
 import static org.junit.jupiter.api.Assertions.*;
 

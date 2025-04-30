@@ -1,4 +1,4 @@
-package com.antharos.aiintegrations.infrastructure.rest;
+package com.antharos.aiintegrations.infrastructure.in.rest;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;

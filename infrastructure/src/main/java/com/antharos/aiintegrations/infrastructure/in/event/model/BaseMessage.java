@@ -1,4 +1,4 @@
-package com.antharos.aiintegrations.infrastructure.event.model;
+package com.antharos.aiintegrations.infrastructure.in.event.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.io.Serial;

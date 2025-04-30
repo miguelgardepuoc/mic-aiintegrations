@@ -1,10 +1,17 @@
 services:
   activemq-artemis:
     image: apache/activemq-artemis:latest
-    container_name: activemq-artemis
+    container_name: activemq-artemis-aiintegrations
     ports:
-      - "61616:61616"  # Puerto JMS
-      - "8161:8161"    # Consola web
+      - "6613:61616" # Puerto JMS
+      - "65533:8161" # Consola web
     environment:
       ARTEMIS_USER: admin
       ARTEMIS_PASSWORD: admin
+
+networks:
+  postgres-net:
+    driver: bridge
+  default:
+    name: shared-network
+    external: true

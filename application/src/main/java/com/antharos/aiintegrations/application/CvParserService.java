@@ -1,6 +1,7 @@
 package com.antharos.aiintegrations.application;
 
 import com.antharos.aiintegrations.domain.NameInfo;
+import com.antharos.aiintegrations.domain.repository.BlobRepository;
 import com.antharos.aiintegrations.domain.repository.MessageProducer;
 import java.io.IOException;
 import java.util.UUID;
@@ -11,16 +12,15 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CvParserService {
 
-  private static final String NAME_EXTRACTED_SUBJECT = "COMPLETE_NAME_EXTRACTED_FROM_CV";
-
   private final NameExtractionService nameExtractionService;
-
   private final MessageProducer messageProducer;
+  private final BlobRepository blobRepository;
 
-  public NameInfo extractName(final UUID id, final byte[] file) throws IOException {
+  public NameInfo extractName(final UUID id, final String filename) throws IOException {
+    final byte[] file = this.blobRepository.downloadFile(filename);
     final String text = this.nameExtractionService.extractTextFromFile(file);
     final NameInfo nameInfo = this.nameExtractionService.findNameInText(text);
-    this.messageProducer.sendMessage(id, NAME_EXTRACTED_SUBJECT, nameInfo);
+    this.messageProducer.sendNameInfoEvent(nameInfo, id);
     return nameInfo;
   }
 }

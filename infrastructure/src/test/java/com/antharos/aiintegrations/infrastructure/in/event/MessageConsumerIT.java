@@ -1,10 +1,10 @@
-package com.antharos.aiintegrations.infrastructure.event;
+package com.antharos.aiintegrations.infrastructure.in.event;
 
 import static org.mockito.Mockito.*;
 
 import com.antharos.aiintegrations.application.CvParserService;
-import com.antharos.aiintegrations.infrastructure.event.model.BaseMessage;
-import com.antharos.aiintegrations.infrastructure.event.model.SignedUpCandidate;
+import com.antharos.aiintegrations.infrastructure.in.event.model.BaseMessage;
+import com.antharos.aiintegrations.infrastructure.in.event.model.SignedUpCandidate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.UUID;
 import org.junit.jupiter.api.*;
@@ -66,23 +66,18 @@ class MessageConsumerIT {
 
   @Test
   void onMessage_ShouldProcessMessage_WhenValidSignedUpCandidateProvided() throws Exception {
-    // Given
     UUID messageId = UUID.randomUUID();
     SignedUpCandidate candidate = new SignedUpCandidate();
     candidate.setCandidateId(UUID.randomUUID());
-    candidate.setJobOfferId(UUID.randomUUID());
-    candidate.setCv("Miguel García".getBytes());
+    candidate.setCvFilename("RandomName");
     BaseMessage<SignedUpCandidate> baseMessage =
         new BaseMessage<>(messageId.toString(), "TEST_SUBJECT", candidate);
     String messageJson = objectMapper.writeValueAsString(baseMessage);
 
-    // When
     producerJmsTemplate.convertAndSend(TEST_TOPIC, messageJson);
 
-    // Wait a bit to ensure async message processing
     Thread.sleep(2000);
 
-    // Then
     // verify(cvParserService, times(1)).extractName(eq(messageId), eq(candidate.getCv()));
   }
 

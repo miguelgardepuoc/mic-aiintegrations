@@ -27,7 +27,6 @@ class NameExtractionServiceUnitTest {
 
   @BeforeEach
   void setUp() throws IOException {
-    // Prepare mock for common Spanish names
     Set<String> mockSpanishNames = new HashSet<>();
     mockSpanishNames.add("maria");
     mockSpanishNames.add("jose");
@@ -35,10 +34,8 @@ class NameExtractionServiceUnitTest {
     when(resourceReader.readNamesFromResource("names/spanish-names.txt"))
         .thenReturn(mockSpanishNames);
 
-    // Create service with mocked dependencies
     nameExtractionService = new NameExtractionService(fileTextExtractor, resourceReader);
 
-    // Ensure pipeline is set to null for testing
     nameExtractionService.initializeWithCustomPipeline(null);
   }
 

@@ -189,57 +189,39 @@ public class NameExtractionService {
   }
 
   private NameInfo splitNameAndSurnames(String fullName) {
-    // Clean any special characters or unnecessary spaces
+    // Clean up and split
     fullName = fullName.replaceAll("[\\r\\n\\t]", " ").trim();
+    fullName = removeAddressArtifacts(fullName);
     String[] parts = fullName.split("\\s+");
 
-    // Single case or without space
     if (parts.length <= 1) {
       return new NameInfo(parts.length == 0 ? "" : parts[0], "");
     }
 
-    // In Spain the typical format is:
-    // 1 given name + 1 paternal surname + 1 maternal surname
-    // Or: 1 compound name + 1-2 surnames
-
-    // Strategy:
-    // 1. If there are 2 words: assume given name + surname
-    // 2. If there are 3 or more:
-    //    a. Verify if the 2nd part is a common name or starts with lowercase
-    //       - If so, it's a compound name or part of surname
-    //    b. Otherwise, the 1st word is the given name, the rest are surnames
-
-    if (parts.length == 2) {
-      // Simple case: given name + surname
-      return new NameInfo(parts[0], parts[1]);
-    }
-
-    // Case with 3 or more words
-    String firstName = parts[0];
+    String firstName;
     StringBuilder lastNames = new StringBuilder();
 
-    // In Spanish, compound names like "María José" are common
-    // but names like "Miguel García" (where García is a surname) also exist
     boolean secondWordIsName = isLikelyFirstName(parts[1]);
-
-    // If the second word appears to be a given name, then it's a compound name
-    if (secondWordIsName) {
+    if (secondWordIsName && parts.length >= 3) {
       firstName = parts[0] + " " + parts[1];
-
-      // The rest are surnames
-      for (int i = 2; i < parts.length; i++) {
+      for (int i = 2; i < Math.min(parts.length, 5); i++) {
         if (!lastNames.isEmpty()) lastNames.append(" ");
         lastNames.append(parts[i]);
       }
     } else {
-      // The first word is the given name, the rest are surnames
-      for (int i = 1; i < parts.length; i++) {
+      firstName = parts[0];
+      for (int i = 1; i < Math.min(parts.length, 5); i++) {
         if (!lastNames.isEmpty()) lastNames.append(" ");
         lastNames.append(parts[i]);
       }
     }
 
     return new NameInfo(capitalizeWords(firstName), capitalizeWords(lastNames.toString()));
+  }
+
+  private String removeAddressArtifacts(String input) {
+    // Remove after common address indicators (e.g. "Plz/", "C/", "Calle", digits)
+    return input.replaceAll("(Plz/|C/|Calle|Avenida|Av\\.|\\d+\\w*).*", "").trim();
   }
 
   private boolean isLikelyFirstName(String word) {

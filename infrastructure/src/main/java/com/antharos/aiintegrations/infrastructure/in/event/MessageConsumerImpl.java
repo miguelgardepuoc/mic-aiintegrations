@@ -1,13 +1,10 @@
-package com.antharos.aiintegrations.infrastructure.event;
+package com.antharos.aiintegrations.infrastructure.in.event;
 
 import com.antharos.aiintegrations.application.CvParserService;
-import com.antharos.aiintegrations.infrastructure.event.model.BaseMessage;
-import com.antharos.aiintegrations.infrastructure.event.model.SignedUpCandidate;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.antharos.aiintegrations.infrastructure.in.event.model.EventMapper;
+import com.antharos.aiintegrations.infrastructure.in.event.model.SignedUpCandidate;
 import jakarta.jms.MessageListener;
 import jakarta.jms.TextMessage;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
@@ -19,7 +16,6 @@ import org.springframework.stereotype.Component;
 public class MessageConsumerImpl implements MessageListener {
 
   private final CvParserService cvParserService;
-  private final ObjectMapper objectMapper;
 
   @Override
   @JmsListener(
@@ -38,13 +34,8 @@ public class MessageConsumerImpl implements MessageListener {
     try {
       messageText = textMessage.getText();
       log.info("Processing message: {}", messageText);
-
-      BaseMessage<SignedUpCandidate> signedUpCandidateBaseMessage =
-          this.objectMapper.readValue(messageText, new TypeReference<>() {});
-
-      this.cvParserService.extractName(
-          UUID.fromString(signedUpCandidateBaseMessage.getId()),
-          signedUpCandidateBaseMessage.getCvFilename());
+      SignedUpCandidate event = EventMapper.mapToSignedUpCandidateEvent(messageText);
+      this.cvParserService.extractName(event.getCandidateId(), event.getCvFilename());
     } catch (Exception e) {
       log.error("Error processing message: {}", messageText, e);
     }

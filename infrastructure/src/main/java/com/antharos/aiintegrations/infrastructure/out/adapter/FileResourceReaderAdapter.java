@@ -1,4 +1,4 @@
-package com.antharos.aiintegrations.infrastructure.adapter;
+package com.antharos.aiintegrations.infrastructure.out.adapter;
 
 import com.antharos.aiintegrations.domain.repository.ResourceReader;
 import java.io.BufferedReader;
