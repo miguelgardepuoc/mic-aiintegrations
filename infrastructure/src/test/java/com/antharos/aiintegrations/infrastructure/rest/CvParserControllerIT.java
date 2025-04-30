@@ -54,7 +54,7 @@ public class CvParserControllerIT {
   @Test
   void extractName_ValidPdfFile_ReturnsNameInfo() throws Exception {
     // Arrange
-    when(cvParserService.extractName(any())).thenReturn(expectedNameInfo);
+    when(cvParserService.extractName(any(), any())).thenReturn(expectedNameInfo);
 
     // Act & Assert
     mockMvc

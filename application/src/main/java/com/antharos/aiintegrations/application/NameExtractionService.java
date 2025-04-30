@@ -12,7 +12,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class NameExtractionService {
@@ -95,7 +94,7 @@ public class NameExtractionService {
     return names;
   }
 
-  public String extractTextFromFile(MultipartFile file) throws IOException {
+  public String extractTextFromFile(byte[] file) throws IOException {
     return this.fileTextExtractor.extractTextFromFile(file);
   }
 

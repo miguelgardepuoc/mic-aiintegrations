@@ -82,6 +82,10 @@
                 <artifactId>archunit-junit5</artifactId>
                 <version>1.4.0</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jms</artifactId>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -108,7 +112,7 @@
                     <java>
                         <googleJavaFormat>
                             <!-- Latest version can be found here: https://github.com/google/google-java-format/releases -->
-                            <version>1.19.2</version>
+                            <version>1.26.0</version>
                             <style>GOOGLE</style>
                         </googleJavaFormat>
                         <lineEndings>UNIX</lineEndings>

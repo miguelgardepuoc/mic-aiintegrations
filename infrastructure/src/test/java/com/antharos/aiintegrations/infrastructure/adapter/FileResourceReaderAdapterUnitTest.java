@@ -10,7 +10,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 
-class FileResourceReaderAdapterTest {
+class FileResourceReaderAdapterUnitTest {
 
   @Test
   void readNamesFromResource_ValidResourceFile_ReturnsCorrectNames() throws IOException {
@@ -52,7 +52,8 @@ class FileResourceReaderAdapterTest {
   @Test
   void readNamesFromResource_OnlyWhitespaceAndNewlines_ReturnsEmptySet() throws IOException {
     // Arrange
-    String content = """
+    String content =
+        """
               \s
 
                  \t  \s
