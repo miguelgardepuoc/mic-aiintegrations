@@ -33,7 +33,7 @@ class MessageConsumerIT {
 
   @Autowired private ObjectMapper objectMapper;
 
-  @Autowired private CvParserService cvParserService;
+  //@Autowired private CvParserService cvParserService;
 
   @InjectMocks private MessageConsumerImpl messageConsumer;
 

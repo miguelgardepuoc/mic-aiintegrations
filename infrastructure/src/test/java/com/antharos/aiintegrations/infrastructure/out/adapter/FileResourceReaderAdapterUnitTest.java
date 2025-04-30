@@ -100,9 +100,7 @@ class FileResourceReaderAdapterUnitTest {
     // Act & Assert
     assertThrows(
         IOException.class,
-        () -> {
-          resourceReader.readNamesFromResource(nonExistentPath);
-        });
+        () -> resourceReader.readNamesFromResource(nonExistentPath));
   }
 
   // Helper method to create a mocked ResourceReader with predefined content
