@@ -98,9 +98,7 @@ class FileResourceReaderAdapterUnitTest {
     String nonExistentPath = "non_existent_file.txt";
 
     // Act & Assert
-    assertThrows(
-        IOException.class,
-        () -> resourceReader.readNamesFromResource(nonExistentPath));
+    assertThrows(IOException.class, () -> resourceReader.readNamesFromResource(nonExistentPath));
   }
 
   // Helper method to create a mocked ResourceReader with predefined content

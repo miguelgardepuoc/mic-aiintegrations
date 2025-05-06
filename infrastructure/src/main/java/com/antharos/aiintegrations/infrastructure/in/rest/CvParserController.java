@@ -4,6 +4,8 @@ import com.antharos.aiintegrations.application.CvParserService;
 import com.antharos.aiintegrations.domain.NameInfo;
 import java.io.IOException;
 import java.util.UUID;
+
+import com.antharos.aiintegrations.infrastructure.security.ManagementOnly;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,7 @@ public class CvParserController {
 
   private final CvParserService cvParserService;
 
+  @ManagementOnly
   @PostMapping("/extract-name")
   public NameInfo extractName(
       @RequestParam("id") UUID id, @RequestParam("filename") String filename) throws IOException {
