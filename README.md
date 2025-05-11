@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Artificial Intelligence service is a microservice within the Antharos HR platform ecosystem. It is designed to facilitate seamless integrations with artificial intelligence systems. It provides APIs to interact with AI models.
+The Artificial Intelligence service is a microservice within the Antharos HR platform ecosystem. It is designed to facilitate seamless integrations with artificial intelligence systems. It provides APIs to interact with AI models. This service is built following a hexagonal architecture pattern.
 
 ## Technology Stack
 
