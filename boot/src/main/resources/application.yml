@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: mic-aiintegrations
+  mvc:
+    servlet:
+      path: /aiintegrations
   jms:
     broker-url: ${SPRING_JMS_BROKER_URL}
     user: ${SPRING_JMS_USER}
