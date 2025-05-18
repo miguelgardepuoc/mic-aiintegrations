@@ -37,4 +37,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.ACR_LOGIN_SERVER }}/springboot-app:latest
+          tags: ${{ secrets.ACR_LOGIN_SERVER }}/mic-aiintegrations:latest
