@@ -10,8 +10,6 @@ services:
       ARTEMIS_PASSWORD: admin
 
 networks:
-  postgres-net:
-    driver: bridge
   default:
     name: shared-network
     external: true
