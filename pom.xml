@@ -42,6 +42,8 @@
         <artemis.jms.client.version>2.31.0</artemis.jms.client.version>
         <pdfbox.version>2.0.27</pdfbox.version>
         <stanford-corenlp.version>4.5.8</stanford-corenlp.version>
+        <spring-cloud-dependencies.version>2024.0.1</spring-cloud-dependencies.version>
+        <azure-spring-cloud-starter-appconfiguration-config.version>2.11.0</azure-spring-cloud-starter-appconfiguration-config.version>
 
         <!-- Plugins -->
         <maven.compiler.plugin.version>3.9.0</maven.compiler.plugin.version>
@@ -169,6 +171,20 @@
                 <artifactId>stanford-corenlp</artifactId>
                 <version>${stanford-corenlp.version}</version>
                 <classifier>models-spanish</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.azure.spring</groupId>
+                <artifactId>azure-spring-cloud-starter-appconfiguration-config</artifactId>
+                <version>${azure-spring-cloud-starter-appconfiguration-config.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

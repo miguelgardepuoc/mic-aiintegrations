@@ -16,16 +16,16 @@ import org.springframework.jms.support.converter.MessageType;
 @EnableJms
 public class JmsConsumerConfig {
 
-  @Value("${consumer.event.host}")
+  @Value("${job-offer.event.host}")
   private String host;
 
-  @Value("${consumer.event.port}")
+  @Value("${job-offer.event.port}")
   private int port;
 
-  @Value("${consumer.event.user}")
+  @Value("${job-offer.event.user}")
   private String username;
 
-  @Value("${consumer.event.password}")
+  @Value("${job-offer.event.password}")
   private String password;
 
   @Bean

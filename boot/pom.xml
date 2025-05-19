@@ -19,7 +19,6 @@
     </properties>
 
     <dependencies>
-        <!-- Internal -->
         <dependency>
             <groupId>com.antharos.aiintegrations</groupId>
             <artifactId>infrastructure</artifactId>
@@ -37,7 +36,12 @@
             <artifactId>domain</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+
+        <dependency>
+            <groupId>com.azure.spring</groupId>
+            <artifactId>azure-spring-cloud-starter-appconfiguration-config</artifactId>
+        </dependency>
+
         <!-- Test scope -->
         <dependency>
             <groupId>com.tngtech.archunit</groupId>
