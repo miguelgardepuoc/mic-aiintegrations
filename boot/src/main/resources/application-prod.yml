@@ -1,10 +1,16 @@
-spring:
-  cloud:
-    azure:
-      appconfiguration:
-        enabled: true
-        stores:
-         - connection-string: ${AZURE_APPCONFIG_CONNECTION_STRING}
-        selects:
-          - key-filter: /ai-integrations/prod/*
-            label-filter: null
+ai-integrations:
+  event:
+    host: antharos.servicebus.windows.net
+    port: 6616
+    user: RootManageSharedAccessKey
+  topic:
+    name: aiintegrations
+job-offer:
+  event:
+    host: antharos.servicebus.windows.net
+    port: 6616
+    user: RootManageSharedAccessKey
+  topic:
+    name: joboffer
+  subscription:
+    name: aiintegrations

@@ -10,26 +10,22 @@ spring:
     broker-url: ${SPRING_JMS_BROKER_URL}
     user: ${SPRING_JMS_USER}
     password: ${SPRING_JMS_PASSWORD}
-  cloud:
-    azure:
-      appconfiguration:
-        enabled: false
 ai-integrations:
   event:
-    host: antharos.servicebus.windows.net
-    port: 6616
-    user: RootManageSharedAccessKey
-    password: "/wMNU/hS3WDsPAxtZiJs9oiA8aqRaElaY+ASbL0sHC0="
+    host: localhost
+    port: 6613
+    user: admin
+    password: admin
   topic:
-    name: aiintegrations
+    name: aiintegrations.processed-asset
 job-offer:
   event:
-    host: antharos.servicebus.windows.net
-    port: 6616
-    user: RootManageSharedAccessKey
-    password: "/wMNU/hS3WDsPAxtZiJs9oiA8aqRaElaY+ASbL0sHC0="
+    host: localhost
+    port: 6612
+    user: admin
+    password: admin
   topic:
-    name: joboffer
+    name: job-offer.candidate
   subscription:
     name: aiintegrations
 azure:

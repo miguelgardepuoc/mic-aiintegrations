@@ -13,19 +13,19 @@ import org.springframework.jms.support.converter.MessageType;
 @Configuration
 public class JmsProducerConfig {
 
-  @Value("${event:host}")
+  @Value("${producer.event.host}")
   private String host;
 
-  @Value("${event.port}")
+  @Value("${producer.event.port}")
   private int port;
 
-  @Value("${ai-integrations.event.user}")
+  @Value("${producer.event.user}")
   private String username;
 
-  @Value("${ai-integrations.event.password}")
+  @Value("${producer.event.password}")
   private String password;
 
-  @Value("${ai-integrations.topic.name}")
+  @Value("${producer.topic.name}")
   private String topicName;
 
   @Bean
