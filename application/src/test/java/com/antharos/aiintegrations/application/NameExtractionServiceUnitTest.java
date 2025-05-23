@@ -1,9 +1,8 @@
-package com.antharos.aiinteegrations.application;
+package com.antharos.aiintegrations.application;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.antharos.aiintegrations.application.NameExtractionService;
 import com.antharos.aiintegrations.domain.NameInfo;
 import com.antharos.aiintegrations.domain.repository.FileTextExtractor;
 import com.antharos.aiintegrations.domain.repository.ResourceReader;
@@ -73,5 +72,27 @@ class NameExtractionServiceUnitTest {
 
     assertEquals("Juan", result.name());
     assertEquals("Pérez", result.surname());
+  }
+
+  @Test
+  void whenExtractTextFromFileIsCalled_thenDelegatesToFileTextExtractor() throws IOException {
+    byte[] file = "dummy content".getBytes();
+    String extractedText = "Texto de prueba";
+    when(fileTextExtractor.extractTextFromFile(file)).thenReturn(extractedText);
+
+    String result = nameExtractionService.extractTextFromFile(file);
+
+    assertEquals(extractedText, result);
+    verify(fileTextExtractor, times(1)).extractTextFromFile(file);
+  }
+
+  @Test
+  void whenFindNameInTextHasNoMatch_thenReturnsEmptyNameInfo() {
+    String text = "No identifiable name here.";
+
+    NameInfo result = nameExtractionService.findNameInText(text);
+
+    assertEquals("", result.name());
+    assertEquals("", result.surname());
   }
 }

@@ -27,6 +27,7 @@
         <module>application</module>
         <module>infrastructure</module>
         <module>boot</module>
+        <module>aggregate-report</module>
     </modules>
 
     <properties>
@@ -42,6 +43,7 @@
         <artemis.jms.client.version>2.31.0</artemis.jms.client.version>
         <pdfbox.version>2.0.27</pdfbox.version>
         <stanford-corenlp.version>4.5.8</stanford-corenlp.version>
+        <azure-messaging-servicebus.version>7.17.11</azure-messaging-servicebus.version>
 
         <!-- Plugins -->
         <maven.compiler.plugin.version>3.9.0</maven.compiler.plugin.version>
@@ -170,13 +172,29 @@
                 <version>${stanford-corenlp.version}</version>
                 <classifier>models-spanish</classifier>
             </dependency>
-
+            <dependency>
+                <groupId>com.azure</groupId>
+                <artifactId>azure-messaging-servicebus</artifactId>
+                <version>${azure-messaging-servicebus.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -221,29 +239,6 @@
     </build>
 
     <profiles>
-        <profile>
-            <id>test-coverage</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>${jacoco.maven.plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>prepare-agent</id>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                            <!-- Do not create a report for every single module.
-                                 Instead, we'll create an *aggregated* report in the "boot" module. -->
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
         <profile>
             <id>code-analysis</id>
             <build>

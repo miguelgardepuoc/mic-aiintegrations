@@ -10,7 +10,7 @@ spring:
     broker-url: ${SPRING_JMS_BROKER_URL}
     user: ${SPRING_JMS_USER}
     password: ${SPRING_JMS_PASSWORD}
-ai-integrations:
+producer:
   event:
     host: localhost
     port: 6613
@@ -18,7 +18,7 @@ ai-integrations:
     password: admin
   topic:
     name: aiintegrations.processed-asset
-job-offer:
+consumer:
   event:
     host: localhost
     port: 6612
