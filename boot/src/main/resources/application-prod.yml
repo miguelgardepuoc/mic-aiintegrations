@@ -10,3 +10,6 @@ consumer:
     name: joboffer
   subscription:
     name: aiintegrations
+security:
+  jwt:
+    secret-key: ${JWT_SECRET_KEY}
