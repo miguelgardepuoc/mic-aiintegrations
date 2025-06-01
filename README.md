@@ -54,3 +54,24 @@ mvn spring-boot:run
 
 The service will be available at `http://localhost:8087/aiintegrations`.
 APIs documentation will be available at `http://localhost:8087/aiintegrations/swagger-ui/index.html`.
+
+## Format code
+
+Code is formatted using spotless-maven-plugin applying google java format:
+```bash
+mvn spotless:apply
+```
+
+## Code coverage
+
+Code coverage is measured using JaCoCo. To generate the report:
+```bash
+mvn clean verify
+```
+This command will execute all tests and generate JaCoCo reports. An aggregated report is generated under the `aggregate-report` module.
+
+To view the full aggregated coverage report, open the following file in your browser:
+```pgsql
+aggregate-report/target/site/jacoco-aggregate/index.html
+```
+This report shows consolidated coverage data across the entire repository.

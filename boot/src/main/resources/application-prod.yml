@@ -1,15 +1,11 @@
-ai-integrations:
+producer:
   event:
-    host: antharos.servicebus.windows.net
-    port: 6616
-    user: RootManageSharedAccessKey
+    connection-string: Endpoint=sb://antharos.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=/wMNU/hS3WDsPAxtZiJs9oiA8aqRaElaY+ASbL0sHC0=
   topic:
     name: aiintegrations
-job-offer:
+consumer:
   event:
-    host: antharos.servicebus.windows.net
-    port: 6616
-    user: RootManageSharedAccessKey
+    connection-string: Endpoint=sb://antharos.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=/wMNU/hS3WDsPAxtZiJs9oiA8aqRaElaY+ASbL0sHC0=
   topic:
     name: joboffer
   subscription:
