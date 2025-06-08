@@ -36,8 +36,10 @@ public class MessageConsumerImplAzure extends AbstractMessageConsumer {
                   processMessageText(body);
                 })
             .processError(
-                errorContext -> log.error(
-                    "Error from Azure Service Bus: {}", errorContext.getException().getMessage()))
+                errorContext ->
+                    log.error(
+                        "Error from Azure Service Bus: {}",
+                        errorContext.getException().getMessage()))
             .buildProcessorClient();
 
     this.processorClient.start();
